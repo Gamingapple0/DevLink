@@ -1,7 +1,7 @@
 import "./Chatbot.css";
 import { useState, useRef, useEffect } from "react";
 import { Button, Icon } from 'semantic-ui-react';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
 
 function Chatbot() {
   // Refs for DOM elements
