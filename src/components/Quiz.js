@@ -1,46 +1,60 @@
 import './Quiz.css';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
+import axios from 'axios'; // Import Axios
 
 function Quiz() {
   // State variables to store questions
-  const [easyQuestion, setEasyQuestion] = useState();
-  const [mediumQuestion, setMediumQuestion] = useState();
-  const [hardQuestion, setHardQuestion] = useState();
+  const [easyQuestion, setEasyQuestion] = useState(null);
+  const [mediumQuestion, setMediumQuestion] = useState(null);
+  const [hardQuestion, setHardQuestion] = useState(null);
 
   // Function to fetch questions from an API
   const fetchQuestions = async () => {
-    let response;
     try {
-      // Attempt to fetch questions from API
-      response = await fetch("https://5c21-2404-7c00-41-b91a-fc35-251f-caca-2994.ngrok-free.app");
+      // First, try fetching using Axios
+      const axiosResponse = await axios.get(
+        "https://5c21-2404-7c00-41-b91a-fc35-251f-caca-2994.ngrok-free.app"
+      );
 
-      // Handle the response...
-    } catch (error) {
-      try {
-        // If the first API request fails due to trial expiration, try a basic fetch
-        response = await fetch("https://gamingapple0.github.io/leetcode_api/questions1.json");
-        
-        if (!response.ok) {
-          throw new Error(`Failed to fetch data. Status: ${response.status}`);
-        }
-
-        // Parse the JSON data
-        const jsonData = await response.json();
-
-        // Set questions from the fetched data
-        setEasyQuestion(jsonData.easy[Math.floor(Math.random() * 5)]);
-        setMediumQuestion(jsonData.medium[Math.floor(Math.random() * 5)]);
-        setHardQuestion(jsonData.hard[Math.floor(Math.random() * 5)]);
-
-        console.log("Name of the first easy question:", easyQuestion.examples);
-        console.log("Name of the first medium question:", mediumQuestion.examples);
-        console.log("Name of the first hard question:", hardQuestion.examples);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+      if (axiosResponse.status === 200) {
+        // If Axios request is successful
+        const data = axiosResponse.data;
+        // Handle the JSON response data here
+        setEasyQuestion(data.easy[Math.floor(Math.random() * 5)]);
+        setMediumQuestion(data.medium[Math.floor(Math.random() * 5)]);
+        setHardQuestion(data.hard[Math.floor(Math.random() * 5)]);
+        return;
       }
+    } catch (error) {
+      // Handle Axios error or non-successful response
+      console.error("Axios error:", error);
+    }
+
+    try {
+      // If Api fails from free trial expiration or some other reason, try a basic fetch
+      const fetchResponse = await fetch(
+        "https://gamingapple0.github.io/leetcode_api/questions1.json"
+      );
+
+      if (!fetchResponse.ok) {
+        throw new Error(`Failed to fetch data. Status: ${fetchResponse.status}`);
+      }
+
+      const jsonData = await fetchResponse.json();
+
+      setEasyQuestion(jsonData.easy[Math.floor(Math.random() * 5)]);
+      setMediumQuestion(jsonData.medium[Math.floor(Math.random() * 5)]);
+      setHardQuestion(jsonData.hard[Math.floor(Math.random() * 5)]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
   };
+
+  // useEffect to fetch questions when the component mounts
+  useEffect(() => {
+    fetchQuestions();
+  }, []);
 
   const form = useRef(null);
 
