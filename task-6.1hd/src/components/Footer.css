@@ -1,0 +1,40 @@
+/* Styling for the footer container */
+.footer-wrapper {
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding-top: 20px;
+    margin-top: 10px;
+  }
+  
+  /* Styling for the web footer section */
+  div.web-footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 300px 10px 300px;
+  }
+  
+  /* Styling for icons */
+  i {
+    width: 48px;
+  }
+  
+  /* Styling for footer links */
+  .link-footer {
+    font-size: 40px;
+  }
+  
+  /* Styling for miscellaneous footer content */
+  .etc-footer > h2 {
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
+  }
+  
+  /* Styling for a second set of miscellaneous footer content */
+  .etc-footer-2 {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 5px 25px 25px 25px;
+  }
+  

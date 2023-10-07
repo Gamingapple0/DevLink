@@ -1,0 +1,172 @@
+/* Global styles for the chat interface */
+
+/* App container styling */
+.App {
+  display: contents;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Chat wrapper styling */
+.wrapper {
+  width: 100%;
+  max-width: 500px;
+  padding: 30px 30px;
+  background: #fdfdfe;
+  border-radius: 20px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  left: 65%;
+  position: fixed;
+  top: 40%;
+  box-sizing: revert;
+  padding-right: 46px;
+}
+
+/* Header section styling */
+.wrapper .content .header {
+  display: flex;
+  align-items: center;
+}
+
+/* Profile image styling */
+.wrapper .content .header .img img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Header right section styling */
+.wrapper .content .header .right {
+  margin-left: 10px;
+}
+
+/* Header name styling */
+.wrapper .content .header .right .name {
+  font-weight: 500;
+  font-size: 1.3em;
+}
+
+/* Header status styling */
+.wrapper .content .header .right .status {
+  /* font-size: 0.8em; */
+  color: #363062;
+  font-weight: 500;
+}
+
+/* Main content section styling */
+.wrapper .content .main {
+  margin: 30px 0 0;
+}
+
+/* Messages section styling */
+.wrapper .content .main .main_content .messages {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Bot message styling */
+.wrapper .content .main .main_content .messages .bot-message {
+  width: 100%;
+  padding: 15px;
+  text-align: center;
+  background: #EDECED;
+  font-style: 1.1em;
+  border-radius: 10px;
+  margin: 0 10px 0;
+}
+
+/* Human message styling */
+.wrapper .content .main .main_content .messages .human-message {
+  width: 100%;
+  padding: 15px;
+  text-align: center;
+  background: #363062;
+  color: #EDECED;
+  font-style: 1.1em;
+  border-radius: 10px;
+  /* margin: 0 10px 0; */
+  position: relative;
+  top: 120px;
+  margin-bottom: 20px;
+}
+
+/* Bottom section styling */
+.wrapper .content .bottom {
+  margin: 120px 0 0;
+}
+
+/* Bottom chat input styling */
+.wrapper .content .bottom .btm .input input {
+  width: 400px;
+  height: 58px;
+  padding-left: 36px;
+  outline: none;
+  border: none;
+  background: #EDECED;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+/* Send button styling */
+.wrapper .content .bottom .btm .btn {
+  margin-left: 10px;
+}
+
+/* Send button styling */
+.wrapper .content .bottom .btm .btn button {
+  width: 100px;
+  height: 50px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  background: #363062;
+  color: #FFF;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1.1em;
+}
+
+/* Send button icon styling */
+.wrapper .content .bottom .btm .btn button i {
+  margin-left: 5px;
+}
+
+/* Additional styles for input and content elements */
+.input {
+  box-sizing: revert;
+}
+
+.content {
+  box-sizing: revert;
+}
+
+/* Chat closed state styling */
+#chat-closed {
+  padding: 30px 30px;
+  background: #fdfdfe;
+  border-radius: 20px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  left: 45%;
+  position: fixed;
+  top: 89%;
+}
+
+/* Remove chat element styling */
+.rem-chat {
+  display: none;
+}
+
+/* Close button styling */
+#close-butt {
+  margin-left: auto;
+}
+
+/* Box sizing for all elements */
+*, :after, :before {
+  box-sizing: revert;
+}

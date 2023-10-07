@@ -1,0 +1,9 @@
+/* Styling for a container of job cards */
+
+
+.job-cards {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+  

@@ -1,0 +1,16 @@
+/* Styling for login error messages */
+
+/* Container for login error message */
+
+.login-error{
+    width: fit-content;
+    height: fit-content;
+    border-radius: 5px;
+    color: white;
+    background-color: red;
+    margin: auto;
+    font-size: large;
+    padding: 20px;
+    font-family: monospace;
+    margin-top: 10px;
+}

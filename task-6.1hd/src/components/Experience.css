@@ -1,0 +1,16 @@
+/* Styling for elements with class "inner-exp" */
+.inner-exp {
+    display: flex; 
+  }
+  
+  /* Styling for direct children of elements with class "inner-exp" */
+  .inner-exp > * {
+    display: flex; 
+  }
+  
+  /* Styling for elements with class "project-cond-length" */
+  .project-cond-length {
+    margin-left: 20px; 
+    margin-bottom: 20px; 
+  }
+  
