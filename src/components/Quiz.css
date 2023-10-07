@@ -1,0 +1,65 @@
+/* Styles for the question container */
+.questionContainer {
+    width: 80%;
+    margin: auto;
+    margin-bottom: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 15px;
+}
+
+/* Styles for pre elements */
+pre {
+    margin: auto;
+    width: fit-content;
+}
+
+/* Styles for quiz answer */
+.quizAnswer {
+    width: 100%;
+    height: 400px;
+}
+
+/* Styles for button container */
+.buttonContainer {
+    width: fit-content;
+    margin: auto;
+}
+
+/* Styles for submit button */
+.submitButton {
+    align-items: center;
+    background: #ffffff;
+    color: black;
+    cursor: pointer;
+    transition: color 1s ease, background 1s ease; /* Combine transitions */
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(90deg, rgb(85 254 195) 2%, rgb(123 156 194) 100%);
+    border-image-slice: 1;
+    outline: none;
+    border-radius: 0.25rem;
+    box-shadow: rgb(0 0 0 / 2%) 0 1px 3px 0;
+    box-sizing: border-box;
+    display: inline-flex;
+    font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 20px;
+    min-height: 3rem;
+    padding: 20px 60px 20px 60px;
+    position: relative;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+}
+
+/* Hover styles for submit button */
+.submitButton:hover {
+    background: #3ecc9f;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
