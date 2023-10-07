@@ -1,6 +1,7 @@
 import "./Chatbot.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button, Icon } from 'semantic-ui-react';
+import axios from 'axios'; // Import Axios
 
 function Chatbot() {
   // Refs for DOM elements
@@ -28,54 +29,87 @@ function Chatbot() {
     const getHumanMessage = humanMessage.current;
     const status = document.querySelector(".status");
 
-    // Fetch prompts and answers from an external API
-    let response;
+    // Fetch prompts and answers from an external API using Axios
     try {
-      // Attempt to fetch questions from API
-      response = await fetch("https://5c21-2404-7c00-41-b91a-fc35-251f-caca-2994.ngrok-free.app/prompts");
+      const axiosResponse = await axios.get(
+        "https://5c21-2404-7c00-41-b91a-fc35-251f-caca-2994.ngrok-free.app/prompts"
+      );
 
-      // Handle the response...
+      if (axiosResponse.status === 200) {
+        // If Axios request is successful
+        const j_res = axiosResponse.data;
+        const promptsAndAnswers = j_res.promptsAndAnswers;
+        const userInput = inputRef.value.toLowerCase();
+
+        // Iterate through promptsAndAnswers to handle pattern conversion
+        const matchedResponse = promptsAndAnswers.find(({ pattern }) => {
+          try {
+            const regex = new RegExp(pattern, 'i'); // 'i' for case-insensitive
+            return regex.test(userInput);
+          } catch (error) {
+            return false; // Handle invalid regular expressions
+          }
+        });
+
+        if (matchedResponse) {
+          getBotMessage.innerText = "Typing...";
+          setTimeout(() => {
+            getBotMessage.innerText = matchedResponse.message;
+            if (matchedResponse.setStatus) {
+              status.innerText = matchedResponse.setStatus;
+              status.style.color = matchedResponse.color;
+            }
+            inputRef.value = ""; // Clear the input
+          }, 2000);
+        }
+
+        getHumanMessage.innerText = userInput; // Display the message
+        return;
+      }
     } catch (error) {
-      try {
-        // If the first API request fails due to trial expiration, try a basic fetch
-        response = await fetch("https://gamingapple0.github.io/prompts_api/prompts.json");
-        
+      // Handle Axios error or non-successful response
+      console.error("Axios error:", error);
     }
-    catch (error) {
+
+    // If Axios request fails, try a basic fetch
+    try {
+      const fetchResponse = await fetch(
+        "https://gamingapple0.github.io/prompts_api/prompts.json"
+      );
+
+      if (!fetchResponse.ok) {
+        throw new Error(`Failed to fetch data. Status: ${fetchResponse.status}`);
+      }
+
+      const j_res = await fetchResponse.json();
+      const promptsAndAnswers = j_res.promptsAndAnswers;
+      const userInput = inputRef.value.toLowerCase();
+
+      const matchedResponse = promptsAndAnswers.find(({ pattern }) => {
+        try {
+          const regex = new RegExp(pattern, 'i');
+          return regex.test(userInput);
+        } catch (error) {
+          return false;
+        }
+      });
+
+      if (matchedResponse) {
+        getBotMessage.innerText = "Typing...";
+        setTimeout(() => {
+          getBotMessage.innerText = matchedResponse.message;
+          if (matchedResponse.setStatus) {
+            status.innerText = matchedResponse.setStatus;
+            status.style.color = matchedResponse.color;
+          }
+          inputRef.value = "";
+        }, 2000);
+      }
+
+      getHumanMessage.innerText = userInput;
+    } catch (error) {
       console.error("Error fetching data:", error);
     }
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch data. Status: ${response.status}`);
-    }
-    const j_res = await response.json();
-    const promptsAndAnswers = j_res.promptsAndAnswers;
-
-    const userInput = inputRef.value.toLowerCase();
-
-    // Iterate through promptsAndAnswers to handle pattern conversion
-    const matchedResponse = promptsAndAnswers.find(({ pattern }) => {
-      try {
-        const regex = new RegExp(pattern, 'i'); // 'i' for case-insensitive
-        return regex.test(userInput);
-      } catch (error) {
-        return false; // Handle invalid regular expressions
-      }
-    });
-
-    if (matchedResponse) {
-      getBotMessage.innerText = "Typing...";
-      setTimeout(() => {
-        getBotMessage.innerText = matchedResponse.message;
-        if (matchedResponse.setStatus) {
-          status.innerText = matchedResponse.setStatus;
-          status.style.color = matchedResponse.color;
-        }
-        inputRef.value = ""; // Clear the input
-      }, 2000);
-    }
-
-    getHumanMessage.innerText = userInput; // Display the message
   };
 
   // Function to close the chat
@@ -159,5 +193,5 @@ function Chatbot() {
     </div>
   );
 }
-}
+
 export default Chatbot;
